@@ -2,6 +2,7 @@ package nl.hilgenbos.tournamentfx.view
 
 import javafx.application.Platform
 import javafx.scene.control.TabPane
+import nl.hilgenbos.tournamentfx.util.FileReader
 import tornadofx.*
 
 class TournamentWorkspace : Workspace("Tournament Workspace", NavigationMode.Tabs) {
@@ -40,7 +41,12 @@ class TournamentWorkspace : Workspace("Tournament Workspace", NavigationMode.Tab
             }
             menu("Help") {
                 item("About...").action {
-                    openInternalWindow<MarkdownView>(closeButton = true, modal = true, )
+                    openInternalWindow<MarkdownView>(closeButton = true, modal = true)
+                    FileReader.openFileFromResources("about.md")
+                }
+                item("Licence...").action {
+                    openInternalWindow<MarkdownView>(closeButton = true, modal = true)
+                    FileReader.openFileFromResources("License.md")
                 }
             }
 

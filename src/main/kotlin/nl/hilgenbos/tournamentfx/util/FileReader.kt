@@ -8,11 +8,17 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 
-class FileReader {
+object FileReader {
+
+    /** Open file from resources on classpath */
+    fun openFileFromResources(filename: String) {
+        val text =  this::class.java.classLoader.getResource(filename).readText()
+        WorkspaceModelManager.textModel.textProperty.set(text)
+     }
+
 
     /** Open a file and set the text in the textArea */
     fun openFile(targetFile: File) {
-
 
         if (!canOpenFile(targetFile)) {
             return
@@ -51,8 +57,7 @@ class FileReader {
         return (targetFile.length() > Constant.OPEN_FILE_SIZE_LIMIT_BYTE)
     }
 
-    /** Read the file rapidly */
-    
+    /** Read the file rapidly  */
     fun readFileWithBuffer(file: File): String {
         val inputStream = BufferedInputStream(FileInputStream(file))
 
